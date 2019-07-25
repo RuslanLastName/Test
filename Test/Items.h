@@ -6,7 +6,7 @@ private:
 	int ID;			//код
 	std::string name = "";		//названия
 	int number;		//какая комната
-	
+	static int amount;
 					//int position;	//какой угол в комнате
 	//bool boolean;
 public:
@@ -18,6 +18,7 @@ public:
 	int get_number();
 	//int get_position();
 	void set_number(int Number);
+	int get_amount();
 	//void set_position(int Position);
 	~Items();
 };

@@ -1,5 +1,4 @@
 #include "Items.h"
-#include <cstring>
 
 
 Items::Items()
@@ -8,7 +7,10 @@ Items::Items()
 	name = "";
 	number = 0;
 	//position = 0;
+	amount++;
 }
+
+int Items::amount = 0;
 
 Items::Items(int id, std::string Name, int Number)
 {
@@ -44,6 +46,11 @@ int Items::get_number()
 void Items::set_number(int Number)
 {
 	number = Number;
+}
+
+int Items::get_amount()
+{
+	return amount;
 }
 
 /*int Items::get_position()

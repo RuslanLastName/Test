@@ -72,16 +72,27 @@ int Room::get_door(char c)
 	if (c == 'u' || c == 'U')
 		if (up > 0)
 			return up;
+		else
+			std::cout << "Doesn't exist! try again!" << number << std::endl;
+
 	if (c == 'd' || c == 'D')
 		if (down > 0)
-			return down;	
+			return down;
+		else
+			std::cout << "Doesn't exist! try again!" << number << std::endl;
+
 	if (c == 'l' || c == 'L')
 		if (left > 0)
 			return left;
+		else
+			std::cout << "Doesn't exist! try again!" << number << std::endl;
+
 	if (c == 'r' || c == 'R')
 		if (right > 0)
-			return right;	
-	std::cout << "Doesn't exist! try again!" << number << std::endl;
+			return right;
+		else
+			std::cout << "Doesn't exist! try again!" << number << std::endl;
+
 	return number;
 }
 
@@ -126,19 +137,30 @@ int Room::Input(char *c, Items items[])
 					return 0;
 				}
 				else
+				for (int amon = 0; amon < items->get_amount(); amon++)
 				{
-					while (items[it].get_ID() < 0)
+					if (str[1] == items[amon].get_name() && pos[i] == items[amon].get_ID())
 					{
-						if (str[1] == items[it].get_name() && pos[i] == items[it].get_ID())
-						{
-							this->pos[i] = -1;
-							update_view();
-							return items[it].get_ID();
-						}
-						it++;
+						this->pos[i] = -1;
+						update_view();
+						return items[amon].get_ID();
 					}
 				}
-
+			}
+		}
+		std::cout << "you can't do it " << std::endl;
+	}
+	else if (str[0] == "open")
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if (pos[i] != -1)
+			{
+				if ((pos[i] == -2) && (str[1] == "chest"))
+				{
+					std::cout << "you find the golden kraaly" << std::endl;
+					return pos[i];
+				}
 			}
 		}
 	}

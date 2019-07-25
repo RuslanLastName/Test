@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Init_map.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Items.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Source.cpp">
@@ -125,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Init_map.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="Items.h" />
     <ClInclude Include="Room.h" />
   </ItemGroup>
