@@ -30,6 +30,18 @@ void Inventory::add_itemc(char item)
 	items.push_back(item);
 }
 
+void Inventory::del_key(char item)
+{
+	auto elfound = find(items.begin(), items.end(), item);
+
+	if (elfound != items.end())
+	{
+		int dist = distance(items.begin(), elfound);
+		items.erase(items.begin() + dist);
+	}
+	
+}
+
 Inventory::Inventory()
 {
 }

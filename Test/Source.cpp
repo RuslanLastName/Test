@@ -12,9 +12,10 @@ using namespace std;
 
 int main(int args, char** argv)
 {
+	const int N = 10;
 	//generation the map
 	Init_map map;
-	Room room[10];
+	Room room[N];
 	Inventory person;
 	//add items
 	string chest = "chest";
@@ -41,7 +42,7 @@ int main(int args, char** argv)
 	map.view_map();
 	steps = (n / 2) * 3;
 	//initialize
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < N; i++)
 	{
 		room[i].set_number(i + 1);
 		int t = room[i].get_number();
@@ -85,7 +86,10 @@ int main(int args, char** argv)
 		{
 			switch (getvalue)
 			{
-			case -2:person.add_itemc('$'); break;//chest
+			case -2: {
+				person.add_itemc('$');
+				person.del_key('%');
+			}break;//chest
 			case -3:person.add_itemc('%'); break;//key
 			}
 		}

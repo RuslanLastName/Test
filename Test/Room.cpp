@@ -152,6 +152,7 @@ int Room::Input(char *c, Items items[])
 	}
 	else if (str[0] == "open")
 	{
+
 		for (int i = 0; i < 4; i++)
 		{
 			if (pos[i] != -1)
@@ -159,7 +160,11 @@ int Room::Input(char *c, Items items[])
 				if ((pos[i] == -2) && (str[1] == "chest"))
 				{
 					std::cout << "you find the golden kraaly" << std::endl;
-					return pos[i];
+
+					int res = pos[i];
+					this->pos[i] = -1;
+					update_view();
+					return res;
 				}
 			}
 		}

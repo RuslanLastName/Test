@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 class Inventory
 {
@@ -10,6 +11,7 @@ public:
 	void show_items();
 	void add_item(int item);
 	void add_itemc(char item);
+	void del_key(char item);
 	Inventory();
 	~Inventory();
 };
