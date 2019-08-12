@@ -13,6 +13,13 @@ private:
 	int y;
 	int view[N][N];
 	int pos[4] = { -1,-1,-1,-1 };
+	
+	static int px;
+	static int py;
+	int pleft;
+	int pright;
+	int pup;
+	int pdown;
 public:
 	Room();
 	void view_room();
@@ -20,7 +27,7 @@ public:
 	int get_number();
 	void set_doors(int up, int down, int left, int right);
 	int get_door(char c);
-	int Input(char *c, Items items[]);
+	int Input(char *c, Items items[], bool itemb);
 	void update_view();
 	int getUp();
 	int getDown();
@@ -28,6 +35,11 @@ public:
 	int getRight();
 	void set_item(int ID);
 	int get_item();
+	void setPerson();
+	char movePerson(char c);
+
+
 	~Room();
 };
+
 

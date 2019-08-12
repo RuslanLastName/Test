@@ -35,8 +35,9 @@ int main(int args, char** argv)
 	int steps;
 	
 	//generate 
-	cout << "Enter the amount of the rooms: ";
-	cin >> n;
+	//cout << "Enter the amount of the rooms: ";
+	//cin >> n;
+	n = 10;
 	map.setN(n);
 	map.gen_map();
 	map.view_map();
@@ -64,7 +65,10 @@ int main(int args, char** argv)
 	_getch();
 	//system("cls");
 	cout << "you in the room [" << begin + 1 << ']' << endl;
+	
+	room[begin].setPerson();
 	room[begin].view_room();
+
 	/*cin.getline(c, 20);
 	cout << items[0].get_name() << endl;
 	cout << items[1].get_name() << endl;
@@ -73,20 +77,26 @@ int main(int args, char** argv)
 	cout << items[1].get_name() << endl;
 	*/
 	int getvalue = 0;
-	while (steps > 0)
+	char getc = ' ';
+	while ((steps > 0) && (c[0] != 'q'))
 	{
 		do
 		{
 			cin.getline(c, 20);
 		} while (c[0] == '\0');
-		next = room[begin].get_door(c[0]);
-		getvalue = room[begin].Input(c, items);
-
+		getc = room[begin].movePerson(c[0]);
+		next = room[begin].get_door(getc);
+		getvalue = room[begin].Input(c, items, person.find_item('%'));
+		// moving person on rooms !!!!!!
 		if (getvalue != 0)
 		{
 			switch (getvalue)
 			{
 			case -2: {
+				if (true)
+				{
+
+				}
 				person.add_itemc('$');
 				person.del_key('%');
 			}break;//chest
@@ -95,7 +105,9 @@ int main(int args, char** argv)
 		}
 			
 		next -= 1;
+		room[next].setPerson();
 		room[next].view_room();
+
 		begin = next;//if all good to do it
 		steps--;
 		cout << getvalue << endl;
@@ -104,47 +116,6 @@ int main(int args, char** argv)
 		//cout << items[1].get_name() << endl;
 	}
 
-/*
-	do
-	{
-		cin.getline(c, 20);
-	} while (c[0] == '\0');
-	next = room[begin].get_door(c[0]);
-	room[begin].Input(c, *items);
-	next -= 1;
-	room[next].view_room();
-	begin = next;//if all good to do it
-
-	do
-	{
-		cin.getline(c, 20);
-	} while (c[0] == '\0');
-	next = room[begin].get_door(c[0]);
-	room[begin].Input(c, *items);
-	next -= 1;
- 	room[next].view_room();
-	begin = next;//if all good to do it
-
-	do
-	{
-		cin.getline(c, 20);
-	} while (c[0] == '\0');
-	next = room[begin].get_door(c[0]);
-	room[begin].Input(c, *items);
-	next -= 1;
-	room[next].view_room();
-	begin = next;//if all good to do it
-
-	do
-	{
-		cin.getline(c, 20);
-	} while (c[0] == '\0');
-	next = room[begin].get_door(c[0]);
-	room[begin].Input(c, *items);
-	next -= 1;
-	room[next].view_room();
-	begin = next;//if all good to do it
-*/
 	_getch();
 
 	//for (int i = 0; i < 2; i++)

@@ -3,6 +3,9 @@
 #include <ctime>
 #include <string>
 
+int Room::px = 2;
+int Room::py = 2;
+
 Room::Room()
 {
 	number = 0;
@@ -12,6 +15,7 @@ Room::Room()
 	down = 0;
 	x = 0;
 	y = 0;
+
 	for (int i = 0; i < N; i++)
 	{
 		for (int j = 0; j < N; j++)
@@ -26,6 +30,10 @@ Room::Room()
 
 void Room::view_room()
 {
+
+
+	//setPerson();
+
 	for (int i = 0; i < N; i++)
 	{
 		for (int j = 0; j < N; j++)
@@ -37,6 +45,7 @@ void Room::view_room()
 			case -1:std::cout << ' ' << ' '; break;//void
 			case -2:std::cout << '$' << ' '; break;//chest
 			case -3:std::cout << '%' << ' '; break;//key
+			case -9:std::cout << '@' << ' '; break;
 			default: {
 				if (up > 0 && view[i][j] == up)
 					std::cout << 'U' << ' ';
@@ -69,34 +78,49 @@ void Room::set_doors(int up, int down, int left, int right)
 
 int Room::get_door(char c)
 {
+	view[py][px] = -1;
 	if (c == 'u' || c == 'U')
 		if (up > 0)
+		{
+			py = 3;
 			return up;
+		}
 		else
 			std::cout << "Doesn't exist! try again!" << number << std::endl;
 
 	if (c == 'd' || c == 'D')
 		if (down > 0)
+		{
+			py = 1;
 			return down;
+		}
 		else
 			std::cout << "Doesn't exist! try again!" << number << std::endl;
 
 	if (c == 'l' || c == 'L')
 		if (left > 0)
+		{
+			px = 3;
 			return left;
+		}
 		else
 			std::cout << "Doesn't exist! try again!" << number << std::endl;
 
 	if (c == 'r' || c == 'R')
 		if (right > 0)
+		{
+			px = 1;
 			return right;
+		}
 		else
 			std::cout << "Doesn't exist! try again!" << number << std::endl;
-
+	
+	setPerson();
+	//view_room();
 	return number;
 }
 
-int Room::Input(char *c, Items items[])
+int Room::Input(char *c, Items items[], bool itemb)
 {
 	std::string str[5];
 	int cchar[10] = { 0 };
@@ -150,7 +174,7 @@ int Room::Input(char *c, Items items[])
 		}
 		std::cout << "you can't do it " << std::endl;
 	}
-	else if (str[0] == "open")
+	else if (str[0] == "open" && itemb)
 	{
 
 		for (int i = 0; i < 4; i++)
@@ -215,11 +239,12 @@ void Room::set_item(int ID)
 			inpos = true;
 		}
 	}
+	update_view();
 
-	view[1][1] = pos[0];
+	/*view[1][1] = pos[0];
 	view[1][3] = pos[1];
 	view[3][1] = pos[2];
-	view[3][3] = pos[3];
+	view[3][3] = pos[3];*/
 }
 
 void Room::update_view()
@@ -228,11 +253,63 @@ void Room::update_view()
 	view[1][3] = pos[1];
 	view[3][1] = pos[2];
 	view[3][3] = pos[3];
+
 }
 
 int Room::get_item()
 {
 	return 0;
+}
+
+void Room::setPerson()
+{
+	view[py][px] = -9;
+	
+	pup = view[py - 1][px];
+	pdown = view[py + 1][px];
+	pleft = view[py][px - 1];
+	pright = view[py][px + 1];
+}
+
+char Room::movePerson(char c)
+{
+	view[py][px] = -1;
+	std::cout << px << "  " << py << std::endl;
+	if (c == 'u' || c == 'U')
+		if (pup == -1)
+			py -= 1;
+		else if (pup > 0)
+			return c;
+		else
+			std::cout << "Doesn't exist! try again!" << number << std::endl;
+
+	if (c == 'd' || c == 'D')
+		if (pdown == -1)
+			py += 1;
+		else if (pdown > 0)
+			return c;
+		else
+			std::cout << "Doesn't exist! try again!" << number << std::endl;
+
+	if (c == 'l' || c == 'L')
+		if (pleft == -1)
+			px -= 1;
+		else if (pleft > 0)
+			return c;
+		else
+			std::cout << "Doesn't exist! try again!" << number << std::endl;
+
+	if (c == 'r' || c == 'R')
+		if (pright == -1)
+			px += 1;
+		else if (pright > 0)
+			return c;
+		else
+			std::cout << "Doesn't exist! try again!" << number << std::endl;
+
+	setPerson();
+	//view_room();
+	return number;
 }
 
 Room::~Room()

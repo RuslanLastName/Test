@@ -12,6 +12,8 @@ public:
 	void add_item(int item);
 	void add_itemc(char item);
 	void del_key(char item);
+	bool find_item(char item);
+
 	Inventory();
 	~Inventory();
 };

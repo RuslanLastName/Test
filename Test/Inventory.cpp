@@ -42,6 +42,17 @@ void Inventory::del_key(char item)
 	
 }
 
+bool Inventory::find_item(char item)
+{
+	auto elfound = find(items.begin(), items.end(), item);
+
+	if (elfound != items.end())
+	{
+		return true;
+	}
+	return false;
+}
+
 Inventory::Inventory()
 {
 }
